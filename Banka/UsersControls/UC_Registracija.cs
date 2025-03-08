@@ -30,7 +30,7 @@ namespace Banka.UsersControls
             string uporabniskoIme = txtUpIme.Text;
             string geslo = txtUpGeslo.Text;
 
-            UporabnikBase uporabnik = new UporabnikBase
+            UporabnikBase<string> uporabnik = new UporabnikBase<string>
             {
                 ime = ime,
                 priimek = priimek,
@@ -40,7 +40,7 @@ namespace Banka.UsersControls
             };
 
 
-            Uporabnik uporabnikBLL = new Uporabnik();
+            Uporabnik<string> uporabnikBLL = new Uporabnik<string>();
             bool jeRegistriran = uporabnikBLL.Registracija(uporabnik);
 
             if (jeRegistriran)

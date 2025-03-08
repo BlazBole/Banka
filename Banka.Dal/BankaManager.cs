@@ -13,7 +13,7 @@ namespace Banka.Dal
             _povezava = new PovezavaPodatkovnaBaza();
         }
 
-        public void Registracija(UporabnikBase uporabnik)
+        public void Registracija<T>(UporabnikBase<T> uporabnik)
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
@@ -30,7 +30,7 @@ namespace Banka.Dal
             }
         }
 
-        public UporabnikBase PridobiUporabnika(string uporabniskoIme)
+        public UporabnikBase<T> PridobiUporabnika<T>(T uporabniskoIme)
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
@@ -43,7 +43,7 @@ namespace Banka.Dal
             
                 if (prebrano.Read())
                 {
-                    return BankaMapper.MapirajUporabnikBase(prebrano);
+                    return BankaMapper.MapirajUporabnikBase<T>(prebrano);
                 }
                 else
                 {

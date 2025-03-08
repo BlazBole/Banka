@@ -3,7 +3,7 @@ using Banka.Dal;
 
 namespace Banka.Bll
 {
-    public class Uporabnik : UporabnikBase, IUporabnik
+    public class Uporabnik<T> : UporabnikBase<T>, IUporabnik
     {
         private readonly BankaManager _bankaManager;
 
@@ -12,7 +12,7 @@ namespace Banka.Bll
             _bankaManager = new BankaManager(new PovezavaPodatkovnaBaza());
         }
 
-        public bool Registracija(UporabnikBase uporabnik)
+        public bool Registracija<T>(UporabnikBase<T> uporabnik)
         {
             var obstojecUporabnik = _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
             if(obstojecUporabnik != null)
