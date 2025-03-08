@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtGeslo = new System.Windows.Forms.TextBox();
+            this.txtUpGeslo = new System.Windows.Forms.TextBox();
             this.txtUpIme = new System.Windows.Forms.TextBox();
             this.lblUpGeslo = new System.Windows.Forms.Label();
             this.lblUpIme = new System.Windows.Forms.Label();
@@ -37,16 +37,16 @@
             this.lblRegistracija = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // txtGeslo
+            // txtUpGeslo
             // 
-            this.txtGeslo.AccessibleDescription = "";
-            this.txtGeslo.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txtGeslo.ForeColor = System.Drawing.Color.DimGray;
-            this.txtGeslo.Location = new System.Drawing.Point(85, 330);
-            this.txtGeslo.Name = "txtGeslo";
-            this.txtGeslo.Size = new System.Drawing.Size(382, 30);
-            this.txtGeslo.TabIndex = 20;
-            this.txtGeslo.Tag = "";
+            this.txtUpGeslo.AccessibleDescription = "";
+            this.txtUpGeslo.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txtUpGeslo.ForeColor = System.Drawing.Color.DimGray;
+            this.txtUpGeslo.Location = new System.Drawing.Point(85, 330);
+            this.txtUpGeslo.Name = "txtUpGeslo";
+            this.txtUpGeslo.Size = new System.Drawing.Size(382, 30);
+            this.txtUpGeslo.TabIndex = 20;
+            this.txtUpGeslo.Tag = "";
             // 
             // txtUpIme
             // 
@@ -124,7 +124,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblRegistracija);
             this.Controls.Add(this.btnPrijava);
-            this.Controls.Add(this.txtGeslo);
+            this.Controls.Add(this.txtUpGeslo);
             this.Controls.Add(this.txtUpIme);
             this.Controls.Add(this.lblUpGeslo);
             this.Controls.Add(this.lblUpIme);
@@ -138,7 +138,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtGeslo;
+        private System.Windows.Forms.TextBox txtUpGeslo;
         private System.Windows.Forms.TextBox txtUpIme;
         private System.Windows.Forms.Label lblUpGeslo;
         private System.Windows.Forms.Label lblUpIme;

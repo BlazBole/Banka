@@ -26,10 +26,10 @@ namespace Banka.Bll
             }
         }
 
-        public bool Prijava()
+        public bool Prijava<T>(UporabnikBase<T> uporabnik)
         {
-            var uporabnik = _bankaManager.PridobiUporabnika(this.uporabniskoIme);
-            if(uporabnik != null && uporabnik.geslo == this.geslo)
+            var obstojecUporabnik = _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
+            if(uporabnik != null && uporabnik.geslo == obstojecUporabnik.geslo)
             {
                 return true;
 

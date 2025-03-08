@@ -40,8 +40,8 @@ namespace Banka.UsersControls
             };
 
 
-            Uporabnik<string> uporabnikBLL = new Uporabnik<string>();
-            bool jeRegistriran = uporabnikBLL.Registracija(uporabnik);
+            Uporabnik<string> uporabnikBll = new Uporabnik<string>();
+            bool jeRegistriran = uporabnikBll.Registracija(uporabnik);
 
             if (jeRegistriran)
             {
