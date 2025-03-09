@@ -9,7 +9,7 @@ namespace Banka.Bll
 
         public Uporabnik()
         {
-            _bankaManager = new BankaManager(new PovezavaPodatkovnaBaza());
+            _bankaManager = new BankaManager(PovezavaPodatkovnaBaza.Instance);
         }
 
         public bool Registracija<T>(UporabnikBase<T> uporabnik)

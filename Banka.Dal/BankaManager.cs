@@ -10,7 +10,7 @@ namespace Banka.Dal
 
         public BankaManager(PovezavaPodatkovnaBaza povezava)
         {
-            _povezava = new PovezavaPodatkovnaBaza();
+            _povezava = PovezavaPodatkovnaBaza.Instance;
         }
 
         public void Registracija<T>(UporabnikBase<T> uporabnik)

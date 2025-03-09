@@ -20,6 +20,7 @@ namespace Banka
 
             ucPrijava.registracijaKlik += UC_Prijava_RegistracijaClick;
             ucRegistracija.prijavaKlik += UC_Registracija_PrijavaClick;
+            ucPrijava.zapriObrazec += UC_Prijava_ZapriObrazecClick;
         }
 
         private void PrikaziUc (UserControl uc)
@@ -37,6 +38,13 @@ namespace Banka
         private void UC_Registracija_PrijavaClick(object sender, EventArgs e)
         {
             PrikaziUc(ucPrijava);
+        }
+
+        private void UC_Prijava_ZapriObrazecClick(object sender, EventArgs e)
+        {
+            Transakcije transakcijeForm = new Transakcije();
+            transakcijeForm.Show();
+            this.Hide();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Banka.UsersControls
     public partial class UC_Prijava : UserControl
     {
         public event EventHandler registracijaKlik;
+        public event EventHandler zapriObrazec;
 
         public UC_Prijava()
         {
@@ -36,8 +37,7 @@ namespace Banka.UsersControls
             if (jePrijavljen)
             {
                 MessageBox.Show("Uspešno ste se prijavili!");
-                Transakcije transakcijeForm = new Transakcije();
-                transakcijeForm.Show();
+                zapriObrazec?.Invoke(this, EventArgs.Empty);
             }
             else
             {
