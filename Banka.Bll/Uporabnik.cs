@@ -21,6 +21,7 @@ namespace Banka.Bll
             }
             else
             {
+                uporabnik.geslo = UporabnikUpravitelj.HashirajGeslo(uporabnik.geslo);
                 _bankaManager.Registracija(uporabnik);
                 return true;
             }
@@ -29,7 +30,7 @@ namespace Banka.Bll
         public bool Prijava<T>(UporabnikBase<T> uporabnik)
         {
             var obstojecUporabnik = _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
-            if(uporabnik != null && uporabnik.geslo == obstojecUporabnik.geslo)
+            if(uporabnik != null && UporabnikUpravitelj.PreveriGeslo(uporabnik.geslo, obstojecUporabnik.geslo))
             {
                 return true;
 
