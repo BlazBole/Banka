@@ -8,7 +8,7 @@ namespace Banka.UsersControls
     public partial class UC_Prijava : UserControl
     {
         public event EventHandler registracijaKlik;
-        public event EventHandler zapriObrazec;
+        public event EventHandler<UporabnikBase<string>> zapriObrazec;
 
         public UC_Prijava()
         {
@@ -25,19 +25,18 @@ namespace Banka.UsersControls
             string uporabniskoIme = txtUpIme.Text;
             string geslo = txtUpGeslo.Text;
 
-            UporabnikBase<string> uporabnik = new UporabnikBase<string>
+
+            Uporabnik<string> uporabnikBll = new Uporabnik<string>();
+            UporabnikBase<string> prijavljenUporabnik = uporabnikBll.Prijava(new UporabnikBase<string>
             {
                 uporabniskoIme = uporabniskoIme,
                 geslo = geslo,
-            };
+            });
 
-            Uporabnik<string> uporabnikBll = new Uporabnik<string>();
-            bool jePrijavljen = uporabnikBll.Prijava(uporabnik);
-
-            if (jePrijavljen)
+            if (prijavljenUporabnik != null)
             {
                 MessageBox.Show("Uspešno ste se prijavili!");
-                zapriObrazec?.Invoke(this, EventArgs.Empty);
+                zapriObrazec?.Invoke(this, prijavljenUporabnik);
             }
             else
             {

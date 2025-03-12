@@ -1,5 +1,6 @@
 ﻿using Banka.Model;
 using Banka.Dal;
+using System;
 
 namespace Banka.Bll
 {
@@ -12,7 +13,7 @@ namespace Banka.Bll
             _bankaManager = new BankaManager(PovezavaPodatkovnaBaza.Instance);
         }
 
-        public bool Registracija<T>(UporabnikBase<T> uporabnik)
+        public bool Registracija(UporabnikBase<string> uporabnik)
         {
             var obstojecUporabnik = _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
             if(obstojecUporabnik != null)
@@ -21,24 +22,30 @@ namespace Banka.Bll
             }
             else
             {
+                uporabnik.stevilkaRacuna = GenerirajStevilkoRacuna();
                 uporabnik.geslo = UporabnikUpravitelj.HashirajGeslo(uporabnik.geslo);
                 _bankaManager.Registracija(uporabnik);
                 return true;
             }
         }
 
-        public bool Prijava<T>(UporabnikBase<T> uporabnik)
+        public UporabnikBase<string> Prijava(UporabnikBase<string> uporabnik)
         {
             var obstojecUporabnik = _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
             if(uporabnik != null && UporabnikUpravitelj.PreveriGeslo(uporabnik.geslo, obstojecUporabnik.geslo))
             {
-                return true;
+                return obstojecUporabnik;
 
             }
-            else
-            {
-                return false;
-            }
+            return null;
+        }
+
+        public static string GenerirajStevilkoRacuna()
+        {
+            Random rand = new Random();
+            string prefix = "SI56";
+            string randomPart = rand.Next(100000000, 999999999).ToString();
+            return prefix + randomPart;
         }
     }
 }

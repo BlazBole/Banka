@@ -13,9 +13,10 @@ namespace Banka.Dal
                 uporabnikID = (int)prebrano["uporabnikID"],
                 ime = prebrano["ime"].ToString(),
                 priimek = prebrano["priimek"].ToString(),
+                stevilkaRacuna = prebrano["stevilkaRacuna"].ToString(),
+                uporabniskoIme = (T)Convert.ChangeType(prebrano["uporabniskoIme"], typeof(T)),
                 geslo = prebrano["geslo"].ToString(),
-                stanje = (decimal)prebrano["stanje"],
-                uporabniskoIme = (T)Convert.ChangeType(prebrano["uporabniskoIme"], typeof(T))
+                stanje = (decimal)prebrano["stanje"]
             };
         }
     }

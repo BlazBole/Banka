@@ -57,9 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ITransakcija.cs" />
     <Compile Include="Interfaces\IUporabnik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Uporabnik.cs" />
+    <Compile Include="Transakcija\DvigTransakcija .cs" />
+    <Compile Include="Transakcija\NakaziloTransakcija .cs" />
+    <Compile Include="Uporabnik\Uporabnik.cs" />
     <Compile Include="Helpers\UporabnikUpravitelj.cs" />
   </ItemGroup>
   <ItemGroup>

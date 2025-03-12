@@ -1,4 +1,5 @@
-﻿using Banka.UsersControls;
+﻿using Banka.Model;
+using Banka.UsersControls;
 using System;
 using System.Windows.Forms;
 
@@ -40,9 +41,9 @@ namespace Banka
             PrikaziUc(ucPrijava);
         }
 
-        private void UC_Prijava_ZapriObrazecClick(object sender, EventArgs e)
+        private void UC_Prijava_ZapriObrazecClick(object sender, UporabnikBase<string> uporabnik)
         {
-            Transakcije transakcijeForm = new Transakcije();
+            Transakcije transakcijeForm = new Transakcije(uporabnik);
             transakcijeForm.Show();
             this.Hide();
         }

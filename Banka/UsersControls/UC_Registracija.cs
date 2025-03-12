@@ -34,6 +34,7 @@ namespace Banka.UsersControls
             {
                 ime = ime,
                 priimek = priimek,
+                stevilkaRacuna = "",
                 uporabniskoIme = uporabniskoIme,
                 geslo = geslo,
                 stanje = 0

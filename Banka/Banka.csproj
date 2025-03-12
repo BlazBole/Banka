@@ -76,6 +76,12 @@
     <Compile Include="Transakcije.Designer.cs">
       <DependentUpon>Transakcije.cs</DependentUpon>
     </Compile>
+    <Compile Include="UsersControls\UC_Nakazilo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UsersControls\UC_Nakazilo.Designer.cs">
+      <DependentUpon>UC_Nakazilo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UsersControls\UC_Prijava.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     </Compile>
     <EmbeddedResource Include="Transakcije.resx">
       <DependentUpon>Transakcije.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersControls\UC_Nakazilo.resx">
+      <DependentUpon>UC_Nakazilo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UsersControls\UC_Prijava.resx">
       <DependentUpon>UC_Prijava.cs</DependentUpon>

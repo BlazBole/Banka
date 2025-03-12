@@ -4,7 +4,7 @@ namespace Banka.Bll
 {
     public interface IUporabnik
     {
-        bool Registracija<T>(UporabnikBase<T> uporabnik);
-        bool Prijava<T>(UporabnikBase<T> uporabnik);
+        bool Registracija(UporabnikBase<string> uporabnik);
+        UporabnikBase<string> Prijava(UporabnikBase<string> uporabnik);
     }
 }
