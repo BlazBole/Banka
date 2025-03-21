@@ -23,7 +23,7 @@ namespace Banka.UsersControls
             prijavaKlik?.Invoke(this, EventArgs.Empty);
         }
 
-        private void btnRegistracija_Click(object sender, EventArgs e)
+        private async void btnRegistracija_Click(object sender, EventArgs e)
         {
             string ime = txtIme.Text;
             string priimek = txtPriimek.Text;
@@ -40,9 +40,8 @@ namespace Banka.UsersControls
                 stanje = 0
             };
 
-
             Uporabnik<string> uporabnikBll = new Uporabnik<string>();
-            bool jeRegistriran = uporabnikBll.Registracija(uporabnik);
+            bool jeRegistriran = await uporabnikBll.Registracija(uporabnik); // ✅ await klic
 
             if (jeRegistriran)
             {
@@ -54,5 +53,6 @@ namespace Banka.UsersControls
                 MessageBox.Show("Uporabnik s tem uporabniškim imenom že obstaja!");
             }
         }
+
     }
 }

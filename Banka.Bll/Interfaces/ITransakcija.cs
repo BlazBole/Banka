@@ -1,9 +1,10 @@
 ﻿using Banka.Model;
+using System.Threading.Tasks;
 
 namespace Banka.Bll.Interfaces
 {
     public interface ITransakcija
     {
-        bool IzvediTransakcijo();
+        Task<bool> IzvediTransakcijo();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Banka.Model;
 using Banka.Dal;
 using System;
+using System.Threading.Tasks;
 
 namespace Banka.Bll
 {
@@ -13,32 +14,30 @@ namespace Banka.Bll
             _bankaManager = new BankaManager(PovezavaPodatkovnaBaza.Instance);
         }
 
-        public bool Registracija(UporabnikBase<string> uporabnik)
+        public async Task<bool> Registracija(UporabnikBase<string> uporabnik)
         {
-            var obstojecUporabnik = _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
-            if(obstojecUporabnik != null)
-            {
-                return false;
-            }
-            else
-            {
-                uporabnik.stevilkaRacuna = GenerirajStevilkoRacuna();
-                uporabnik.geslo = UporabnikUpravitelj.HashirajGeslo(uporabnik.geslo);
-                _bankaManager.Registracija(uporabnik);
-                return true;
-            }
+            var obstojecUporabnik = await _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
+            if (obstojecUporabnik != null) return false;
+
+            uporabnik.stevilkaRacuna = GenerirajStevilkoRacuna();
+            uporabnik.geslo = UporabnikUpravitelj.HashirajGeslo(uporabnik.geslo);
+
+            _bankaManager.Registracija(uporabnik);
+            return true;
         }
 
-        public UporabnikBase<string> Prijava(UporabnikBase<string> uporabnik)
+        public async Task<UporabnikBase<string>> Prijava(UporabnikBase<string> uporabnik)
         {
-            var obstojecUporabnik = _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
-            if(uporabnik != null && UporabnikUpravitelj.PreveriGeslo(uporabnik.geslo, obstojecUporabnik.geslo))
+            var obstojecUporabnik = await _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
+
+            if (obstojecUporabnik != null && UporabnikUpravitelj.PreveriGeslo(uporabnik.geslo, obstojecUporabnik.geslo))
             {
                 return obstojecUporabnik;
-
             }
+
             return null;
         }
+
 
         public static string GenerirajStevilkoRacuna()
         {

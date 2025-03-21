@@ -2,6 +2,7 @@
 using Banka.Model;
 using System;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace Banka.Dal
 {
@@ -32,7 +33,7 @@ namespace Banka.Dal
             }
         }
 
-        public UporabnikBase<T> PridobiUporabnika<T>(T uporabniskoIme)
+        public async Task<UporabnikBase<T>> PridobiUporabnika<T>(T uporabniskoIme)
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
@@ -40,21 +41,21 @@ namespace Banka.Dal
                 var komanda = new SqlCommand(poizvedba, povezava);
                 komanda.Parameters.AddWithValue("@uporabniskoIme", uporabniskoIme);
 
-                povezava.Open();
-                var prebrano = komanda.ExecuteReader();
-
-                if (prebrano.Read())
+                await povezava.OpenAsync();
+                using (var prebrano = await komanda.ExecuteReaderAsync())
                 {
-                    return BankaMapper.MapirajUporabnikBase<T>(prebrano);
-                }
-                else
-                {
-                    return null;
+                    if (await prebrano.ReadAsync())
+                    {
+                        return BankaMapper.MapirajUporabnikBase<T>(prebrano);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }
-
-        public dynamic PridobiStanjeUporabnika(int uporabnikID)
+        public async Task<dynamic> PridobiStanjeUporabnika(int uporabnikID)
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
@@ -62,10 +63,10 @@ namespace Banka.Dal
                 var komanda = new SqlCommand(poizvedba, povezava);
                 komanda.Parameters.AddWithValue("@uporabnikID", uporabnikID);
 
-                povezava.Open();
-                var prebrano = komanda.ExecuteReader();
+                await povezava.OpenAsync();
+                var prebrano = await komanda.ExecuteReaderAsync();
 
-                if (prebrano.Read())
+                if (await prebrano.ReadAsync())
                 {
                     return BankaMapper.MapirajUporabnikaTempDynamic(prebrano);
                 }
@@ -75,6 +76,7 @@ namespace Banka.Dal
                 }
             }
         }
+
 
         public void PosodobiUporabnika(string stevilkaRacuna, decimal novoStanje)
         {
@@ -91,7 +93,7 @@ namespace Banka.Dal
             }
         }
 
-        public int PridobiIDPrejemnika(string stevilkaRacuna)
+        public async Task<int> PridobiIDPrejemnika(string stevilkaRacuna)
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
@@ -99,8 +101,8 @@ namespace Banka.Dal
                 var komanda = new SqlCommand(poizvedba, povezava);
                 komanda.Parameters.AddWithValue("@stevilkaRacuna", stevilkaRacuna);
 
-                povezava.Open();
-                var rezultat = komanda.ExecuteScalar();
+                await povezava.OpenAsync();
+                var rezultat = await komanda.ExecuteScalarAsync();
 
                 if (rezultat != null)
                     return Convert.ToInt32(rezultat);
@@ -109,7 +111,7 @@ namespace Banka.Dal
             }
         }
 
-        public void ZabeleziTransakcijo(TransakcijaBase transakcija)
+        public async Task ZabeleziTransakcijo(TransakcijaBase transakcija)
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
@@ -128,10 +130,11 @@ namespace Banka.Dal
                     komanda.Parameters.AddWithValue("@uporabnikID", transakcija.uporabnikID);
                     komanda.Parameters.AddWithValue("@uporabnikPrejemnikID", transakcija.uporabnikPrejemnikID);
 
-                    povezava.Open();
-                    komanda.ExecuteNonQuery();
+                    await povezava.OpenAsync();
+                    await komanda.ExecuteNonQueryAsync();
                 }
             }
         }
+
     }
 }

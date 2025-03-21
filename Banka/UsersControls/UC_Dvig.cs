@@ -14,17 +14,15 @@ namespace Banka.UsersControls
             InitializeComponent();
             _prijavljenUporabnik = uporabnik;
         }
-
-        private void btnDvig_Click(object sender, EventArgs e)
+        private async void btnDvig_Click(object sender, EventArgs e)
         {
-
             int uporabnikID = _prijavljenUporabnik.uporabnikID;
             decimal znesek = 10m;
             TipTransakcije tipTransakcije = TipTransakcije.priliv;
 
-            DvigTransakcija dvigTransakcijaBll = new DvigTransakcija(uporabnikID, znesek, tipTransakcije);
+            DvigTransakcija dvigTransakcijaBll = new DvigTransakcija(uporabnikID, uporabnikID, znesek, tipTransakcije);
 
-            bool uspeh = dvigTransakcijaBll.IzvediTransakcijo();
+            bool uspeh = await dvigTransakcijaBll.IzvediTransakcijo();
 
             if (uspeh)
             {
@@ -34,7 +32,6 @@ namespace Banka.UsersControls
             {
                 MessageBox.Show("Ni dovolj sredstev ali je prišlo do napake.");
             }
-
         }
     }
 }

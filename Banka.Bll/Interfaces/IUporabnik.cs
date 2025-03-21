@@ -1,10 +1,11 @@
 ﻿using Banka.Model;
+using System.Threading.Tasks;
 
 namespace Banka.Bll
 {
     public interface IUporabnik
     {
-        bool Registracija(UporabnikBase<string> uporabnik);
-        UporabnikBase<string> Prijava(UporabnikBase<string> uporabnik);
+        Task<bool> Registracija(UporabnikBase<string> uporabnik);
+        Task<UporabnikBase<string>> Prijava(UporabnikBase<string> uporabnik);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Banka.Model
 {
@@ -16,7 +17,7 @@ namespace Banka.Model
             return znesek > 0;
         }
 
-        public abstract bool IzvediTransakcijo();
+        public abstract Task<bool> IzvediTransakcijo();
     }
 
     public enum TipTransakcije

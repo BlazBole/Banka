@@ -13,7 +13,7 @@ namespace Banka.UsersControls
             _prijavljenUporabnik = uporabnik;
         }
 
-        private void btnPolog_Click(object sender, System.EventArgs e)
+        private async void btnPolog_Click(object sender, System.EventArgs e)
         {
             int uporabnikID = _prijavljenUporabnik.uporabnikID;
             string stevilkaRacuna = "SI56194003828";
@@ -22,11 +22,11 @@ namespace Banka.UsersControls
 
             NakaziloTransakcija nakaziloTransakcija = new NakaziloTransakcija(uporabnikID, 0, znesek, tipTransakcije);
 
-            int prejemnikID = nakaziloTransakcija.pridobiUporabnikazStevilkoRacuna(stevilkaRacuna);
+            int prejemnikID = await nakaziloTransakcija.pridobiUporabnikazStevilkoRacuna(stevilkaRacuna);
 
             nakaziloTransakcija.uporabnikPrejemnikID = prejemnikID;
 
-            bool uspeh = nakaziloTransakcija.IzvediTransakcijo();
+            bool uspeh = await nakaziloTransakcija.IzvediTransakcijo();
 
             if (uspeh)
             {

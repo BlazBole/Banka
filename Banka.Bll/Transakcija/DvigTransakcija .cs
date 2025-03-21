@@ -2,6 +2,7 @@
 using Banka.Dal;
 using Banka.Model;
 using System;
+using System.Threading.Tasks;
 
 namespace Banka.Bll.Transakcija
 {
@@ -9,17 +10,18 @@ namespace Banka.Bll.Transakcija
     {
         private readonly BankaManager _bankaManager;
 
-        public DvigTransakcija(int uporabnikID, decimal znesek, TipTransakcije tipTransakcije)
+        public DvigTransakcija(int uporabnikPosiljateljID, int uporabnikPrejemnikID, decimal znesek, TipTransakcije tipTransakcije)
         {
-            this.uporabnikID = uporabnikID;
+            this.uporabnikID = uporabnikPosiljateljID;
+            this.uporabnikPrejemnikID = uporabnikPrejemnikID;
             this.znesek = znesek;
             this.tip = tipTransakcije;
             _bankaManager = new BankaManager(PovezavaPodatkovnaBaza.Instance);
         }
 
-        public override bool IzvediTransakcijo()
+        public override async Task<bool> IzvediTransakcijo()
         {
-            var uporabnik = _bankaManager.PridobiStanjeUporabnika(this.uporabnikID);
+            var uporabnik = await _bankaManager.PridobiStanjeUporabnika(this.uporabnikID);
 
             if (uporabnik != null)
             {
@@ -27,12 +29,13 @@ namespace Banka.Bll.Transakcija
 
                 _bankaManager.PosodobiUporabnika(uporabnik.stevilkaRacuna, uporabnik.stanje);
 
-                //_bankaManager.ZabeleziTransakcijo(this);
+                await _bankaManager.ZabeleziTransakcijo(this);
 
                 return true;
             }
 
             return false;
         }
+
     }
 }

@@ -20,14 +20,13 @@ namespace Banka.UsersControls
             registracijaKlik?.Invoke(this, EventArgs.Empty);
         }
 
-        private void btnPrijava_Click(object sender, EventArgs e)
+        private async void btnPrijava_Click(object sender, EventArgs e)
         {
             string uporabniskoIme = txtUpIme.Text;
             string geslo = txtUpGeslo.Text;
 
-
             Uporabnik<string> uporabnikBll = new Uporabnik<string>();
-            UporabnikBase<string> prijavljenUporabnik = uporabnikBll.Prijava(new UporabnikBase<string>
+            UporabnikBase<string> prijavljenUporabnik = await uporabnikBll.Prijava(new UporabnikBase<string>
             {
                 uporabniskoIme = uporabniskoIme,
                 geslo = geslo,

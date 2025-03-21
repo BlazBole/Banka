@@ -2,6 +2,7 @@
 using Banka.Dal;
 using Banka.Model;
 using System;
+using System.Threading.Tasks;
 
 namespace Banka.Bll.Transakcija
 {
@@ -18,10 +19,11 @@ namespace Banka.Bll.Transakcija
             this.tip = tipTransakcije;
             _bankaManager = new BankaManager(PovezavaPodatkovnaBaza.Instance);
         }
-        public override bool IzvediTransakcijo()
+
+        public override async Task<bool> IzvediTransakcijo()
         {
-            var uporabnikPosiljatelj = _bankaManager.PridobiStanjeUporabnika(this.uporabnikID);
-            var uporabnikPrejemnik = _bankaManager.PridobiStanjeUporabnika(this.uporabnikPrejemnikID);
+            var uporabnikPosiljatelj = await _bankaManager.PridobiStanjeUporabnika(this.uporabnikID);
+            var uporabnikPrejemnik = await _bankaManager.PridobiStanjeUporabnika(this.uporabnikPrejemnikID);
 
             if (uporabnikPosiljatelj != null && uporabnikPrejemnik != null && uporabnikPosiljatelj.stanje >= znesek)
             {
@@ -31,7 +33,7 @@ namespace Banka.Bll.Transakcija
                 _bankaManager.PosodobiUporabnika(uporabnikPosiljatelj.stevilkaRacuna, uporabnikPosiljatelj.stanje);
                 _bankaManager.PosodobiUporabnika(uporabnikPrejemnik.stevilkaRacuna, uporabnikPrejemnik.stanje);
 
-                _bankaManager.ZabeleziTransakcijo(this);
+                await _bankaManager.ZabeleziTransakcijo(this);
 
                 return true;
             }
@@ -39,11 +41,10 @@ namespace Banka.Bll.Transakcija
             return false;
         }
 
-        public int pridobiUporabnikazStevilkoRacuna(string stevilkaRacuna)
-        {
-            int stevilkaRcuna = _bankaManager.PridobiIDPrejemnika(stevilkaRacuna);
 
-            return stevilkaRcuna;
+        public async Task<int> pridobiUporabnikazStevilkoRacuna(string stevilkaRacuna)
+        {
+            return await _bankaManager.PridobiIDPrejemnika(stevilkaRacuna);
         }
     }
 }
