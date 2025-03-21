@@ -1,6 +1,6 @@
 ﻿namespace Banka.UsersControls
 {
-    partial class UC_Nakazilo
+    partial class UC_Transakcije
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,32 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnPolog = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnPolog
-            // 
-            this.btnPolog.Location = new System.Drawing.Point(719, 204);
-            this.btnPolog.Name = "btnPolog";
-            this.btnPolog.Size = new System.Drawing.Size(75, 23);
-            this.btnPolog.TabIndex = 0;
-            this.btnPolog.Text = "button1";
-            this.btnPolog.UseVisualStyleBackColor = true;
-            this.btnPolog.Click += new System.EventHandler(this.btnPolog_Click);
-            // 
-            // UC_Polog
+            // UC_Transakcije
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnPolog);
-            this.Name = "UC_Polog";
+            this.Name = "UC_Transakcije";
             this.Size = new System.Drawing.Size(984, 445);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnPolog;
     }
 }

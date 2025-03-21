@@ -76,6 +76,12 @@
     <Compile Include="Transakcije.Designer.cs">
       <DependentUpon>Transakcije.cs</DependentUpon>
     </Compile>
+    <Compile Include="UsersControls\UC_Dvig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UsersControls\UC_Dvig.Designer.cs">
+      <DependentUpon>UC_Dvig.cs</DependentUpon>
+    </Compile>
     <Compile Include="UsersControls\UC_Nakazilo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,6 +100,12 @@
     <Compile Include="UsersControls\UC_Registracija.Designer.cs">
       <DependentUpon>UC_Registracija.cs</DependentUpon>
     </Compile>
+    <Compile Include="UsersControls\UC_Transakcije.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UsersControls\UC_Transakcije.Designer.cs">
+      <DependentUpon>UC_Transakcije.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Obrazec.resx">
       <DependentUpon>Obrazec.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +121,9 @@
     <EmbeddedResource Include="Transakcije.resx">
       <DependentUpon>Transakcije.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UsersControls\UC_Dvig.resx">
+      <DependentUpon>UC_Dvig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UsersControls\UC_Nakazilo.resx">
       <DependentUpon>UC_Nakazilo.cs</DependentUpon>
     </EmbeddedResource>
@@ -117,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UsersControls\UC_Registracija.resx">
       <DependentUpon>UC_Registracija.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersControls\UC_Transakcije.resx">
+      <DependentUpon>UC_Transakcije.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

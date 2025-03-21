@@ -1,5 +1,6 @@
 ﻿
 using Banka.Model;
+using System;
 using System.Data.SqlClient;
 
 namespace Banka.Dal
@@ -41,7 +42,7 @@ namespace Banka.Dal
 
                 povezava.Open();
                 var prebrano = komanda.ExecuteReader();
-            
+
                 if (prebrano.Read())
                 {
                     return BankaMapper.MapirajUporabnikBase<T>(prebrano);
@@ -53,17 +54,58 @@ namespace Banka.Dal
             }
         }
 
-        public void PosodobiUporabnika(UporabnikBase<string> uporabnik)
+        public dynamic PridobiStanjeUporabnika(int uporabnikID)
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
-                string poizvedba = "UPDATE Uporabnik SET stanje = @stanje WHERE stevilkaRacuna = @stevilkaRacuna";
+                string poizvedba = "SELECT * FROM Uporabnik WHERE uporabnikID = @uporabnikID";
                 var komanda = new SqlCommand(poizvedba, povezava);
-                komanda.Parameters.AddWithValue("@stanje", uporabnik.stanje);
-                komanda.Parameters.AddWithValue("@stevilkaRacuna", uporabnik.stevilkaRacuna);
+                komanda.Parameters.AddWithValue("@uporabnikID", uporabnikID);
+
+                povezava.Open();
+                var prebrano = komanda.ExecuteReader();
+
+                if (prebrano.Read())
+                {
+                    return BankaMapper.MapirajUporabnikaTempDynamic(prebrano);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public void PosodobiUporabnika(string stevilkaRacuna, decimal novoStanje)
+        {
+          
+            using (var povezava = _povezava.PridobiPovezavo())
+            {
+                string poizvedba = "UPDATE Uporabnik SET stanje = @novoStanje WHERE stevilkaRacuna = @stevilkaRacuna";
+                var komanda = new SqlCommand(poizvedba, povezava);
+                komanda.Parameters.AddWithValue("@novoStanje", novoStanje);
+                komanda.Parameters.AddWithValue("@stevilkaRacuna", stevilkaRacuna);
 
                 povezava.Open();
                 komanda.ExecuteNonQuery();
+            }
+        }
+
+        public int PridobiIDPrejemnika(string stevilkaRacuna)
+        {
+            using (var povezava = _povezava.PridobiPovezavo())
+            {
+                string poizvedba = "SELECT uporabnikID FROM Uporabnik WHERE stevilkaRacuna = @stevilkaRacuna";
+                var komanda = new SqlCommand(poizvedba, povezava);
+                komanda.Parameters.AddWithValue("@stevilkaRacuna", stevilkaRacuna);
+
+                povezava.Open();
+                var rezultat = komanda.ExecuteScalar();
+
+                if (rezultat != null)
+                    return Convert.ToInt32(rezultat);
+                else
+                    throw new Exception("Uporabnik s to številko računa ne obstaja.");
             }
         }
 
@@ -71,16 +113,24 @@ namespace Banka.Dal
         {
             using (var povezava = _povezava.PridobiPovezavo())
             {
-                string poizvedba = "INSERT INTO Transakcije (stevilkaRacunaOpravljalca, stevilkaRacunaPrejemnika, znesek, datumTransakcije) " +
-                                    "VALUES (@stevilkaRacunaOpravljalca, @stevilkaRacunaPrejemnika, @znesek, @datumTransakcije)";
-                var komanda = new SqlCommand(poizvedba, povezava);
-                komanda.Parameters.AddWithValue("@stevilkaRacunaOpravljalca", transakcija.StevilkaRacunaOpravljalca);
-                komanda.Parameters.AddWithValue("@stevilkaRacunaPrejemnika", transakcija.StevilkaRacunaPrejemnika);
-                komanda.Parameters.AddWithValue("@znesek", transakcija.Znesek);
-                komanda.Parameters.AddWithValue("@datumTransakcije", transakcija.DatumTransakcije);
+                string sql = "INSERT INTO Transakcija (znesek, datumTransakcije, tip, uporabnikID, uporabnikPrejemnikID) " +
+                             "VALUES (@znesek, @datumTransakcije, @tip, @uporabnikID, @uporabnikPrejemnikID)";
 
-                povezava.Open();
-                komanda.ExecuteNonQuery();
+                using (var komanda = new SqlCommand(sql, povezava))
+                {
+                    DateTime datum = (transakcija.datumTransakcije == DateTime.MinValue)
+                                        ? DateTime.Now
+                                        : transakcija.datumTransakcije;
+
+                    komanda.Parameters.AddWithValue("@znesek", transakcija.znesek);
+                    komanda.Parameters.AddWithValue("@datumTransakcije", datum);
+                    komanda.Parameters.AddWithValue("@tip", (int)transakcija.tip);
+                    komanda.Parameters.AddWithValue("@uporabnikID", transakcija.uporabnikID);
+                    komanda.Parameters.AddWithValue("@uporabnikPrejemnikID", transakcija.uporabnikPrejemnikID);
+
+                    povezava.Open();
+                    komanda.ExecuteNonQuery();
+                }
             }
         }
     }

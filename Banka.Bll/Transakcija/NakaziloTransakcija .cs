@@ -10,26 +10,26 @@ namespace Banka.Bll.Transakcija
 
         private readonly BankaManager _bankaManager;
 
-        public NakaziloTransakcija(string stevilkaRacunaOpravljalca, string stevilkaRacunaPrejemnika, decimal znesek)
+        public NakaziloTransakcija(int uporabnikPosiljateljID, int uporabnikPrejemnikID, decimal znesek, TipTransakcije tipTransakcije)
         {
-            StevilkaRacunaOpravljalca = stevilkaRacunaOpravljalca;
-            StevilkaRacunaPrejemnika = stevilkaRacunaPrejemnika;
-            Znesek = znesek;
-            DatumTransakcije = DateTime.Now;
+            this.uporabnikID = uporabnikPosiljateljID;
+            this.uporabnikPrejemnikID = uporabnikPrejemnikID;
+            this.znesek = znesek;
+            this.tip = tipTransakcije;
             _bankaManager = new BankaManager(PovezavaPodatkovnaBaza.Instance);
         }
         public override bool IzvediTransakcijo()
         {
-            var uporabnikOpravljalec = _bankaManager.PridobiUporabnika(StevilkaRacunaOpravljalca);
-            var uporabnikPrejemnik = _bankaManager.PridobiUporabnika(StevilkaRacunaPrejemnika);
+            var uporabnikPosiljatelj = _bankaManager.PridobiStanjeUporabnika(this.uporabnikID);
+            var uporabnikPrejemnik = _bankaManager.PridobiStanjeUporabnika(this.uporabnikPrejemnikID);
 
-            if (uporabnikOpravljalec != null && uporabnikPrejemnik != null && uporabnikOpravljalec.stanje >= Znesek)
+            if (uporabnikPosiljatelj != null && uporabnikPrejemnik != null && uporabnikPosiljatelj.stanje >= znesek)
             {
-                uporabnikOpravljalec.stanje -= Znesek;
-                uporabnikPrejemnik.stanje += Znesek;
+                uporabnikPosiljatelj.stanje -= znesek;
+                uporabnikPrejemnik.stanje += znesek;
 
-                _bankaManager.PosodobiUporabnika(uporabnikOpravljalec);
-                _bankaManager.PosodobiUporabnika(uporabnikPrejemnik);
+                _bankaManager.PosodobiUporabnika(uporabnikPosiljatelj.stevilkaRacuna, uporabnikPosiljatelj.stanje);
+                _bankaManager.PosodobiUporabnika(uporabnikPrejemnik.stevilkaRacuna, uporabnikPrejemnik.stanje);
 
                 _bankaManager.ZabeleziTransakcijo(this);
 
@@ -37,6 +37,13 @@ namespace Banka.Bll.Transakcija
             }
 
             return false;
+        }
+
+        public int pridobiUporabnikazStevilkoRacuna(string stevilkaRacuna)
+        {
+            int stevilkaRcuna = _bankaManager.PridobiIDPrejemnika(stevilkaRacuna);
+
+            return stevilkaRcuna;
         }
     }
 }

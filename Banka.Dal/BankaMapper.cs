@@ -1,5 +1,6 @@
 ﻿using Banka.Model;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace Banka.Dal
@@ -19,5 +20,20 @@ namespace Banka.Dal
                 stanje = (decimal)prebrano["stanje"]
             };
         }
+
+        public static dynamic MapirajUporabnikaTempDynamic(SqlDataReader prebrano)
+        {
+            dynamic rezultat = new System.Dynamic.ExpandoObject();
+            var dict = (IDictionary<string, object>)rezultat;
+            dict["uporabnikID"] = (int)prebrano["uporabnikID"];
+            dict["ime"] = prebrano["ime"].ToString();
+            dict["priimek"] = prebrano["priimek"].ToString();
+            dict["stevilkaRacuna"] = prebrano["stevilkaRacuna"].ToString();
+            dict["uporabniskoIme"] = prebrano["uporabniskoIme"].ToString();
+            dict["geslo"] = prebrano["geslo"].ToString();
+            dict["stanje"] = (decimal)prebrano["stanje"];
+            return rezultat;
+        }
+
     }
 }

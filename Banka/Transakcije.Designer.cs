@@ -35,20 +35,17 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblGlavaProfil = new System.Windows.Forms.Panel();
+            this.pnlVsebina = new System.Windows.Forms.Panel();
             this.lblDvig = new System.Windows.Forms.Label();
-            this.lblPolog = new System.Windows.Forms.Label();
+            this.lblNakazilo = new System.Windows.Forms.Label();
             this.lblTransakcije = new System.Windows.Forms.Label();
             this.pbTransakcije = new System.Windows.Forms.PictureBox();
             this.pbPolog = new System.Windows.Forms.PictureBox();
             this.pbDvig = new System.Windows.Forms.PictureBox();
-            this.lblProfil = new System.Windows.Forms.Label();
-            this.pbProfil = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.gbGlavaNovRacun = new System.Windows.Forms.GroupBox();
             this.lblOdjava = new System.Windows.Forms.Label();
             this.pbOdjava = new System.Windows.Forms.PictureBox();
-            this.gbGlavaProfil = new System.Windows.Forms.GroupBox();
             this.gbGlavaStatistika = new System.Windows.Forms.GroupBox();
             this.gbGlavaStranke = new System.Windows.Forms.GroupBox();
             this.gbGlavaDelo = new System.Windows.Forms.GroupBox();
@@ -57,11 +54,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbTransakcije)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPolog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDvig)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbProfil)).BeginInit();
             this.panel1.SuspendLayout();
             this.gbGlavaNovRacun.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbOdjava)).BeginInit();
-            this.gbGlavaProfil.SuspendLayout();
             this.gbGlavaStatistika.SuspendLayout();
             this.gbGlavaStranke.SuspendLayout();
             this.gbGlavaDelo.SuspendLayout();
@@ -134,14 +129,14 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // lblGlavaProfil
+            // pnlVsebina
             // 
-            this.lblGlavaProfil.BackColor = System.Drawing.Color.White;
-            this.lblGlavaProfil.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblGlavaProfil.Location = new System.Drawing.Point(0, 116);
-            this.lblGlavaProfil.Name = "lblGlavaProfil";
-            this.lblGlavaProfil.Size = new System.Drawing.Size(984, 445);
-            this.lblGlavaProfil.TabIndex = 10;
+            this.pnlVsebina.BackColor = System.Drawing.Color.White;
+            this.pnlVsebina.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlVsebina.Location = new System.Drawing.Point(0, 116);
+            this.pnlVsebina.Name = "pnlVsebina";
+            this.pnlVsebina.Size = new System.Drawing.Size(984, 445);
+            this.pnlVsebina.TabIndex = 10;
             // 
             // lblDvig
             // 
@@ -152,16 +147,18 @@
             this.lblDvig.Size = new System.Drawing.Size(44, 23);
             this.lblDvig.TabIndex = 1;
             this.lblDvig.Text = "Dvig";
+            this.lblDvig.Click += new System.EventHandler(this.lblDvig_Click);
             // 
-            // lblPolog
+            // lblNakazilo
             // 
-            this.lblPolog.AutoSize = true;
-            this.lblPolog.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblPolog.Location = new System.Drawing.Point(41, 13);
-            this.lblPolog.Name = "lblPolog";
-            this.lblPolog.Size = new System.Drawing.Size(53, 23);
-            this.lblPolog.TabIndex = 1;
-            this.lblPolog.Text = "Polog";
+            this.lblNakazilo.AutoSize = true;
+            this.lblNakazilo.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblNakazilo.Location = new System.Drawing.Point(41, 13);
+            this.lblNakazilo.Name = "lblNakazilo";
+            this.lblNakazilo.Size = new System.Drawing.Size(75, 23);
+            this.lblNakazilo.TabIndex = 1;
+            this.lblNakazilo.Text = "Nakazilo";
+            this.lblNakazilo.Click += new System.EventHandler(this.lblNakazilo_Click);
             // 
             // lblTransakcije
             // 
@@ -172,6 +169,7 @@
             this.lblTransakcije.Size = new System.Drawing.Size(92, 23);
             this.lblTransakcije.TabIndex = 1;
             this.lblTransakcije.Text = "Transakcije";
+            this.lblTransakcije.Click += new System.EventHandler(this.lblTransakcije_Click);
             // 
             // pbTransakcije
             // 
@@ -203,31 +201,10 @@
             this.pbDvig.TabIndex = 0;
             this.pbDvig.TabStop = false;
             // 
-            // lblProfil
-            // 
-            this.lblProfil.AutoSize = true;
-            this.lblProfil.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblProfil.Location = new System.Drawing.Point(41, 13);
-            this.lblProfil.Name = "lblProfil";
-            this.lblProfil.Size = new System.Drawing.Size(49, 23);
-            this.lblProfil.TabIndex = 1;
-            this.lblProfil.Text = "Profil";
-            // 
-            // pbProfil
-            // 
-            this.pbProfil.Image = ((System.Drawing.Image)(resources.GetObject("pbProfil.Image")));
-            this.pbProfil.Location = new System.Drawing.Point(6, 10);
-            this.pbProfil.Name = "pbProfil";
-            this.pbProfil.Size = new System.Drawing.Size(29, 28);
-            this.pbProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbProfil.TabIndex = 0;
-            this.pbProfil.TabStop = false;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.gbGlavaNovRacun);
-            this.panel1.Controls.Add(this.gbGlavaProfil);
             this.panel1.Controls.Add(this.gbGlavaStatistika);
             this.panel1.Controls.Add(this.gbGlavaStranke);
             this.panel1.Controls.Add(this.gbGlavaDelo);
@@ -257,6 +234,7 @@
             this.lblOdjava.Size = new System.Drawing.Size(63, 23);
             this.lblOdjava.TabIndex = 1;
             this.lblOdjava.Text = "Odjava";
+            this.lblOdjava.Click += new System.EventHandler(this.lblOdjava_Click);
             // 
             // pbOdjava
             // 
@@ -268,21 +246,11 @@
             this.pbOdjava.TabIndex = 0;
             this.pbOdjava.TabStop = false;
             // 
-            // gbGlavaProfil
-            // 
-            this.gbGlavaProfil.Controls.Add(this.lblProfil);
-            this.gbGlavaProfil.Controls.Add(this.pbProfil);
-            this.gbGlavaProfil.Location = new System.Drawing.Point(436, 3);
-            this.gbGlavaProfil.Name = "gbGlavaProfil";
-            this.gbGlavaProfil.Size = new System.Drawing.Size(96, 44);
-            this.gbGlavaProfil.TabIndex = 4;
-            this.gbGlavaProfil.TabStop = false;
-            // 
             // gbGlavaStatistika
             // 
             this.gbGlavaStatistika.Controls.Add(this.lblDvig);
             this.gbGlavaStatistika.Controls.Add(this.pbDvig);
-            this.gbGlavaStatistika.Location = new System.Drawing.Point(315, 3);
+            this.gbGlavaStatistika.Location = new System.Drawing.Point(325, 3);
             this.gbGlavaStatistika.Name = "gbGlavaStatistika";
             this.gbGlavaStatistika.Size = new System.Drawing.Size(98, 44);
             this.gbGlavaStatistika.TabIndex = 3;
@@ -290,11 +258,11 @@
             // 
             // gbGlavaStranke
             // 
-            this.gbGlavaStranke.Controls.Add(this.lblPolog);
+            this.gbGlavaStranke.Controls.Add(this.lblNakazilo);
             this.gbGlavaStranke.Controls.Add(this.pbPolog);
             this.gbGlavaStranke.Location = new System.Drawing.Point(183, 3);
             this.gbGlavaStranke.Name = "gbGlavaStranke";
-            this.gbGlavaStranke.Size = new System.Drawing.Size(110, 44);
+            this.gbGlavaStranke.Size = new System.Drawing.Size(122, 44);
             this.gbGlavaStranke.TabIndex = 2;
             this.gbGlavaStranke.TabStop = false;
             // 
@@ -313,7 +281,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
-            this.Controls.Add(this.lblGlavaProfil);
+            this.Controls.Add(this.pnlVsebina);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button1);
@@ -325,13 +293,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbTransakcije)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPolog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDvig)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbProfil)).EndInit();
             this.panel1.ResumeLayout(false);
             this.gbGlavaNovRacun.ResumeLayout(false);
             this.gbGlavaNovRacun.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbOdjava)).EndInit();
-            this.gbGlavaProfil.ResumeLayout(false);
-            this.gbGlavaProfil.PerformLayout();
             this.gbGlavaStatistika.ResumeLayout(false);
             this.gbGlavaStatistika.PerformLayout();
             this.gbGlavaStranke.ResumeLayout(false);
@@ -349,20 +314,17 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel lblGlavaProfil;
+        private System.Windows.Forms.Panel pnlVsebina;
         private System.Windows.Forms.Label lblDvig;
-        private System.Windows.Forms.Label lblPolog;
+        private System.Windows.Forms.Label lblNakazilo;
         private System.Windows.Forms.Label lblTransakcije;
         private System.Windows.Forms.PictureBox pbTransakcije;
         private System.Windows.Forms.PictureBox pbPolog;
         private System.Windows.Forms.PictureBox pbDvig;
-        private System.Windows.Forms.Label lblProfil;
-        private System.Windows.Forms.PictureBox pbProfil;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox gbGlavaNovRacun;
         private System.Windows.Forms.Label lblOdjava;
         private System.Windows.Forms.PictureBox pbOdjava;
-        private System.Windows.Forms.GroupBox gbGlavaProfil;
         private System.Windows.Forms.GroupBox gbGlavaStatistika;
         private System.Windows.Forms.GroupBox gbGlavaStranke;
         private System.Windows.Forms.GroupBox gbGlavaDelo;

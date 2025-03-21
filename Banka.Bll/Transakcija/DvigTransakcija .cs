@@ -9,25 +9,25 @@ namespace Banka.Bll.Transakcija
     {
         private readonly BankaManager _bankaManager;
 
-        public DvigTransakcija(string stevilkaRacunaOpravljalca, decimal znesek)
+        public DvigTransakcija(int uporabnikID, decimal znesek, TipTransakcije tipTransakcije)
         {
-            StevilkaRacunaOpravljalca = stevilkaRacunaOpravljalca;
-            Znesek = znesek;
-            DatumTransakcije = DateTime.Now;
+            this.uporabnikID = uporabnikID;
+            this.znesek = znesek;
+            this.tip = tipTransakcije;
             _bankaManager = new BankaManager(PovezavaPodatkovnaBaza.Instance);
         }
 
         public override bool IzvediTransakcijo()
         {
-            var uporabnik = _bankaManager.PridobiUporabnika(StevilkaRacunaOpravljalca);
+            var uporabnik = _bankaManager.PridobiStanjeUporabnika(this.uporabnikID);
 
-            if (uporabnik != null && uporabnik.stanje >= Znesek)
+            if (uporabnik != null)
             {
-                uporabnik.stanje -= Znesek;
+                uporabnik.stanje += znesek;
 
-                _bankaManager.PosodobiUporabnika(uporabnik);
+                _bankaManager.PosodobiUporabnika(uporabnik.stevilkaRacuna, uporabnik.stanje);
 
-                _bankaManager.ZabeleziTransakcijo(this);
+                //_bankaManager.ZabeleziTransakcijo(this);
 
                 return true;
             }

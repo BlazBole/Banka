@@ -1,20 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Banka.Bll.Transakcija;
+using Banka.Model;
 using System.Windows.Forms;
 
 namespace Banka.UsersControls
 {
     public partial class UC_Nakazilo : UserControl
     {
-        public UC_Nakazilo()
+        public UporabnikBase<string> _prijavljenUporabnik;
+        public UC_Nakazilo(UporabnikBase<string> uporabnik)
         {
             InitializeComponent();
+            _prijavljenUporabnik = uporabnik;
+        }
+
+        private void btnPolog_Click(object sender, System.EventArgs e)
+        {
+            int uporabnikID = _prijavljenUporabnik.uporabnikID;
+            string stevilkaRacuna = "SI56194003828";
+            decimal znesek = 30m;
+            TipTransakcije tipTransakcije = TipTransakcije.odliv;
+
+            NakaziloTransakcija nakaziloTransakcija = new NakaziloTransakcija(uporabnikID, 0, znesek, tipTransakcije);
+
+            int prejemnikID = nakaziloTransakcija.pridobiUporabnikazStevilkoRacuna(stevilkaRacuna);
+
+            nakaziloTransakcija.uporabnikPrejemnikID = prejemnikID;
+
+            bool uspeh = nakaziloTransakcija.IzvediTransakcijo();
+
+            if (uspeh)
+            {
+                MessageBox.Show("Nakazilo je uspešno!");
+            }
+            else
+            {
+                MessageBox.Show("Ni dovolj sredstev ali je prišlo do napake.");
+            }
         }
     }
 }
