@@ -21,7 +21,7 @@ namespace Banka.Dal
             };
         }
 
-        public static dynamic MapirajUporabnikaTempDynamic(SqlDataReader prebrano)
+        public static dynamic MapirajUporabnika(SqlDataReader prebrano)
         {
             dynamic rezultat = new System.Dynamic.ExpandoObject();
             var dict = (IDictionary<string, object>)rezultat;
@@ -35,5 +35,27 @@ namespace Banka.Dal
             return rezultat;
         }
 
+        public static List<Dictionary<string, object>> MapirajTransakcije(SqlDataReader prebrano)
+        {
+            var transakcije = new List<Dictionary<string, object>>();
+
+            while (prebrano.Read())
+            {
+                var transakcija = new Dictionary<string, object>
+                {
+                    { "transakcijaID", prebrano.GetInt32(prebrano.GetOrdinal("transakcijaID")) },
+                    { "znesek", prebrano.GetDecimal(prebrano.GetOrdinal("znesek")) },
+                    { "datumTransakcije", prebrano.GetDateTime(prebrano.GetOrdinal("datumTransakcije")) },
+                    { "tip", (TipTransakcije)prebrano.GetInt32(prebrano.GetOrdinal("tip")) },
+                    { "uporabnikID", prebrano.GetInt32(prebrano.GetOrdinal("uporabnikID")) },
+                    { "uporabnikPrejemnikID", prebrano.GetInt32(prebrano.GetOrdinal("uporabnikPrejemnikID")) },
+                    { "posiljatelj", prebrano["PosiljateljIme"] != DBNull.Value ? prebrano["PosiljateljIme"].ToString() : "Neznan" },
+                    { "prejemnik", prebrano["PrejemnikIme"] != DBNull.Value ? prebrano["PrejemnikIme"].ToString() : "Neznan" }
+                };
+
+                transakcije.Add(transakcija);
+            }
+            return transakcije;
+        }
     }
 }

@@ -12,12 +12,19 @@ namespace Banka
             InitializeComponent();
             _prijavljenUporabnik = uporabnik;
             PrikaziPodatke();
+            naloziZacetniPogled();
         }
 
         private void PrikaziPodatke()
         {
             lblUpIme.Text = _prijavljenUporabnik.uporabniskoIme.ToString();
             lblStevilkaRacuna.Text = _prijavljenUporabnik.stevilkaRacuna.ToString();
+        }
+
+        private void naloziZacetniPogled()
+        {
+            UC_Transakcije ucTransakcije = new UC_Transakcije(_prijavljenUporabnik);
+            LoadUserControl(ucTransakcije);
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -53,6 +60,7 @@ namespace Banka
         private void lblOdjava_Click(object sender, System.EventArgs e)
         {
             Obrazec odjavaForm = new Obrazec();
+            this.Close();
             odjavaForm.Show();
         }
     }

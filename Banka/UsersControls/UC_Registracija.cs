@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using Banka.Bll;
 using Banka.Model;
-using Banka.Dal;
 
 namespace Banka.UsersControls
 {

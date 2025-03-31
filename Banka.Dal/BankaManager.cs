@@ -1,6 +1,6 @@
-﻿
-using Banka.Model;
+﻿using Banka.Model;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -55,6 +55,7 @@ namespace Banka.Dal
                 }
             }
         }
+
         public async Task<dynamic> PridobiStanjeUporabnika(int uporabnikID)
         {
             using (var povezava = _povezava.PridobiPovezavo())
@@ -68,7 +69,7 @@ namespace Banka.Dal
 
                 if (await prebrano.ReadAsync())
                 {
-                    return BankaMapper.MapirajUporabnikaTempDynamic(prebrano);
+                    return BankaMapper.MapirajUporabnika(prebrano);
                 }
                 else
                 {
@@ -76,7 +77,6 @@ namespace Banka.Dal
                 }
             }
         }
-
 
         public void PosodobiUporabnika(string stevilkaRacuna, decimal novoStanje)
         {
@@ -107,7 +107,7 @@ namespace Banka.Dal
                 if (rezultat != null)
                     return Convert.ToInt32(rezultat);
                 else
-                    throw new Exception("Uporabnik s to številko računa ne obstaja.");
+                    return 0;
             }
         }
 
@@ -136,5 +136,33 @@ namespace Banka.Dal
             }
         }
 
+        public async Task<List<Dictionary<string, object>>> PridobiVseTransakcije(string stevilkaRacuna)
+        {
+            var transakcije = new List<Dictionary<string, object>>();
+
+            using (var povezava = _povezava.PridobiPovezavo())
+            {
+                string sql = @"SELECT t.transakcijaID, t.znesek, t.datumTransakcije, t.tip, 
+                               t.uporabnikID, t.uporabnikPrejemnikID,
+                               uPosiljatelj.ime AS PosiljateljIme,   -- alias za ime pošiljatelja
+                               uPosiljatelj.priimek AS PosiljateljPriimek,
+                               uPrejemnik.ime AS PrejemnikIme,
+                               uPrejemnik.priimek AS PrejemnikPriimek
+                                    FROM Transakcija t
+                                    LEFT JOIN Uporabnik uPosiljatelj ON t.uporabnikID = uPosiljatelj.uporabnikID
+                                    LEFT JOIN Uporabnik uPrejemnik ON t.uporabnikPrejemnikID = uPrejemnik.uporabnikID
+                                    WHERE uPosiljatelj.stevilkaRacuna = @stevilkaRacuna OR uPrejemnik.stevilkaRacuna = @stevilkaRacuna;";
+                await povezava.OpenAsync();
+                using (var komanda = new SqlCommand(sql, povezava))
+                {
+                    komanda.Parameters.AddWithValue("@stevilkaRacuna", stevilkaRacuna);
+                    using (var reader = await komanda.ExecuteReaderAsync())
+                    {
+                        transakcije = BankaMapper.MapirajTransakcije(reader);
+                    }
+                }
+            }
+            return transakcije;
+        }
     }
 }

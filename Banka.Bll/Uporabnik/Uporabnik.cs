@@ -38,6 +38,16 @@ namespace Banka.Bll
             return null;
         }
 
+        public async Task<UporabnikBase<string>> PridobiUporabnika(UporabnikBase<string> uporabnik)
+        {
+            var obstojecUporabnik = await _bankaManager.PridobiUporabnika(uporabnik.uporabniskoIme);
+            if (obstojecUporabnik != null)
+            {
+                return obstojecUporabnik;
+            }
+            return null;
+        }
+
 
         public static string GenerirajStevilkoRacuna()
         {

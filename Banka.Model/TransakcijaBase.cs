@@ -11,6 +11,8 @@ namespace Banka.Model
         public TipTransakcije tip { get; set; }
         public int uporabnikID { get; set; }
         public int uporabnikPrejemnikID { get; set; }
+        public string posiljatelj { get; set; }
+        public string prejemnik { get; set; }
 
         public override bool ValidirajOperacijo()
         {

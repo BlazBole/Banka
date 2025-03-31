@@ -1,5 +1,10 @@
-﻿using Banka.Model;
+﻿using Banka.Bll.Transakcija;
+using Banka.Model;
+using System.Collections.Generic;
+using System.Data;
+using System;
 using System.Windows.Forms;
+using Banka.Bll;
 
 namespace Banka.UsersControls
 {
@@ -10,6 +15,76 @@ namespace Banka.UsersControls
         {
             InitializeComponent();
             _prijavljenUporabnik = uporabnik;
+            NaloziTransakcije();
+            PridobiStanjeUporabnika();
+        }
+
+        private DataTable PretvoriVDataTable(List<Dictionary<string, object>> podatki)
+        {
+            DataTable dt = new DataTable();
+
+            int stevilkaTransakcije = 1;
+
+            dt.Columns.Add("transakcijaID", typeof(int));
+            dt.Columns.Add("znesek", typeof(decimal));
+            dt.Columns.Add("datumTransakcije", typeof(DateTime));
+            dt.Columns.Add("tip", typeof(string));
+            dt.Columns.Add("prejemnik", typeof(string));
+
+            dt.Columns["transakcijaID"].ColumnName = "Številka transakcije";
+            dt.Columns["znesek"].ColumnName = "Znesek (€)";
+            dt.Columns["datumTransakcije"].ColumnName = "Datum";
+            dt.Columns["tip"].ColumnName = "Vrsta";
+            dt.Columns["prejemnik"].ColumnName = "Prejemnik";
+
+            foreach (var transakcija in podatki)
+            {
+                DataRow row = dt.NewRow();
+                row["Številka transakcije"] = stevilkaTransakcije;
+                row["Znesek (€)"] = transakcija["znesek"];
+                row["Datum"] = transakcija["datumTransakcije"];
+                row["Prejemnik"] = transakcija["prejemnik"];
+
+                if (row["Prejemnik"].ToString() == _prijavljenUporabnik.ime)
+                {
+                    row["Vrsta"] = "Priliv";
+                }
+                else
+                {
+                    row["Vrsta"] = "Odliv";
+                }
+
+                dt.Rows.Add(row);
+                stevilkaTransakcije++;
+            }
+
+            return dt;
+        }
+
+        private async void NaloziTransakcije()
+        {
+            Transakcija transakcija = new Transakcija();
+            string stevilkaracunaUporabnika = _prijavljenUporabnik.stevilkaRacuna.ToString();
+            var transakcije = await transakcija.PridobiTransakcijeZaPrikaz(stevilkaracunaUporabnika);
+
+            dgwTransakcije.DataSource = PretvoriVDataTable(transakcije);
+
+            dgwTransakcije.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgwTransakcije.Dock = DockStyle.Fill;
+
+            dgwTransakcije.AutoResizeColumns();
+        }
+
+        private async void PridobiStanjeUporabnika()
+        {
+            Uporabnik<string> uporabnikBll = new Uporabnik<string>();
+            UporabnikBase<string> uporabnik = await uporabnikBll.PridobiUporabnika(new UporabnikBase<string>
+            {
+                uporabniskoIme = _prijavljenUporabnik.uporabniskoIme,
+            });
+
+            lblStanje.Text = uporabnik.stanje.ToString() + " €";
         }
     }
 }

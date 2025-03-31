@@ -1,7 +1,6 @@
 ﻿using Banka.Bll.Interfaces;
 using Banka.Dal;
 using Banka.Model;
-using System;
 using System.Threading.Tasks;
 
 namespace Banka.Bll.Transakcija

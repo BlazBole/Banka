@@ -1,5 +1,4 @@
-﻿using Banka.Model;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Banka.Bll.Interfaces
 {
