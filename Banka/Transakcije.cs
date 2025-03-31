@@ -41,20 +41,17 @@ namespace Banka
 
         private void lblTransakcije_Click(object sender, System.EventArgs e)
         {
-            UC_Transakcije ucTransakcije = new UC_Transakcije(_prijavljenUporabnik);
-            LoadUserControl(ucTransakcije);
+            LoadUserControl(UC_Factory.Create("Transakcije", _prijavljenUporabnik));
         }
 
         private void lblNakazilo_Click(object sender, System.EventArgs e)
         {
-            UC_Nakazilo ucDvig = new UC_Nakazilo(_prijavljenUporabnik);
-            LoadUserControl(ucDvig);
+            LoadUserControl(UC_Factory.Create("Nakazilo", _prijavljenUporabnik));
         }
 
         private void lblDvig_Click(object sender, System.EventArgs e)
         {
-            UC_Dvig ucDvig = new UC_Dvig(_prijavljenUporabnik);
-            LoadUserControl(ucDvig);
+            LoadUserControl(UC_Factory.Create("Dvig", _prijavljenUporabnik));
         }
 
         private void lblOdjava_Click(object sender, System.EventArgs e)

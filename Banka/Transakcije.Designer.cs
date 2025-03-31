@@ -285,6 +285,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button1);
+            this.MinimumSize = new System.Drawing.Size(700, 400);
             this.Name = "Transakcije";
             this.Text = "Transakcije";
             this.panel2.ResumeLayout(false);

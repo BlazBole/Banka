@@ -23,15 +23,11 @@ namespace Banka.UsersControls
         {
             DataTable dt = new DataTable();
 
-            int stevilkaTransakcije = 1;
-
-            dt.Columns.Add("transakcijaID", typeof(int));
             dt.Columns.Add("znesek", typeof(decimal));
             dt.Columns.Add("datumTransakcije", typeof(DateTime));
             dt.Columns.Add("tip", typeof(string));
             dt.Columns.Add("prejemnik", typeof(string));
 
-            dt.Columns["transakcijaID"].ColumnName = "Številka transakcije";
             dt.Columns["znesek"].ColumnName = "Znesek (€)";
             dt.Columns["datumTransakcije"].ColumnName = "Datum";
             dt.Columns["tip"].ColumnName = "Vrsta";
@@ -40,7 +36,6 @@ namespace Banka.UsersControls
             foreach (var transakcija in podatki)
             {
                 DataRow row = dt.NewRow();
-                row["Številka transakcije"] = stevilkaTransakcije;
                 row["Znesek (€)"] = transakcija["znesek"];
                 row["Datum"] = transakcija["datumTransakcije"];
                 row["Prejemnik"] = transakcija["prejemnik"];
@@ -55,7 +50,6 @@ namespace Banka.UsersControls
                 }
 
                 dt.Rows.Add(row);
-                stevilkaTransakcije++;
             }
 
             return dt;

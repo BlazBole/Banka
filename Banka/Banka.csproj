@@ -76,6 +76,7 @@
     <Compile Include="Transakcije.Designer.cs">
       <DependentUpon>Transakcije.cs</DependentUpon>
     </Compile>
+    <Compile Include="FactoryPattern\UC_Factory.cs" />
     <Compile Include="UsersControls\UC_Dvig.cs">
       <SubType>UserControl</SubType>
     </Compile>
